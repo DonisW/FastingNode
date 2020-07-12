@@ -1,0 +1,25 @@
+{
+  "name": "login_js",
+  "version": "1.0.0",
+  "description": "app web login",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DonisW/Login_node.git"
+  },
+  "keywords": [
+    "es"
+  ],
+  "author": "Donis_w",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DonisW/Login_node/issues"
+  },
+  "homepage": "https://github.com/DonisW/Login_node#readme",
+  "dependencies": {
+    "mongoose": "^5.9.23"
+  }
+}
