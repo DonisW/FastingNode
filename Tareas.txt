@@ -1,0 +1,13 @@
+1-Crear formulario para el registro de usuarios{
+	-registrar new users
+	-[nombres,apellidos,correo,nick,sexo]
+}
+
+2-Crear vista, donde muestro los usuarios creados * un filtro para usuarios
+botones{
+	-Modificar
+	-Borrar
+}
+
+3-Crear vista para modificiar el usuario.
+
