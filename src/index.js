@@ -15,12 +15,12 @@ app.set("port", process.env.port || 3000 );
 app.set("views", path.join(__dirname,"views"));
 
 app.engine(".hbs",exphbs({
-  defaultLayout: "main",
+  defaultLayout: "main" ,
   layoutsDir: path.join(app.get("views"), "layouts"),
   partialsDir: path.join(app.get("views"),"partials"),
   extname: ".hbs"
 }));
-app.set("views engine", ".hbs");
+app.set("view engine", ".hbs" );
 
 //middlewares
 
