@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/DonisW/Login_node#readme",
   "dependencies": {
+    "@handlebars/allow-prototype-access": "^1.0.3",
     "connect-flash": "^0.1.1",
     "express": "^4.17.1",
     "express-handlebars": "^5.0.0",
