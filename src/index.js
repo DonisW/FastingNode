@@ -3,6 +3,8 @@ const path = require("path");
 const exphbs = require("express-handlebars");
 const methodOverrider = require("method-override");
 const session = require("express-session");
+const Handlebars = require("handlebars");
+const {allowInsecurePrototypeAccess} = require("@handlebars/allow-prototype-access")
 
 //initializations
 
@@ -15,6 +17,7 @@ app.set("port", process.env.port || 3000 );
 app.set("views", path.join(__dirname,"views"));
 
 app.engine(".hbs",exphbs({
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
   defaultLayout: "main" ,
   layoutsDir: path.join(app.get("views"), "layouts"),
   partialsDir: path.join(app.get("views"),"partials"),
