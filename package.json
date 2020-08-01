@@ -21,6 +21,7 @@
   "homepage": "https://github.com/DonisW/Login_node#readme",
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
+    "boxicons": "^2.0.5",
     "connect-flash": "^0.1.1",
     "express": "^4.17.1",
     "express-handlebars": "^5.0.0",
@@ -28,10 +29,11 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.9.23",
     "passport": "^0.4.1",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "handlebars": "^4.7.6"
   },
   "devDependencies": {
-    "handlebars": "^4.5.0",
+    "handlebars": "^4.7.6",
     "nodemon": "^2.0.4",
     "typescript": "^3.9.7"
   }

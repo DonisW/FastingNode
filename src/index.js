@@ -4,7 +4,8 @@ const exphbs = require("express-handlebars");
 const methodOverrider = require("method-override");
 const session = require("express-session");
 const Handlebars = require("handlebars");
-const {allowInsecurePrototypeAccess} = require("@handlebars/allow-prototype-access")
+const {allowInsecurePrototypeAccess} = require("@handlebars/allow-prototype-access");
+
 
 //initializations
 
