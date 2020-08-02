@@ -5,6 +5,7 @@ const methodOverrider = require("method-override");
 const session = require("express-session");
 const Handlebars = require("handlebars");
 const {allowInsecurePrototypeAccess} = require("@handlebars/allow-prototype-access");
+const flash = require("connect-flash");
 
 
 //initializations
@@ -36,7 +37,14 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(flash());
+
 //global variables
+app.use((req, res, next) =>{
+res.locals.exito_not= req.flash("exito_not");
+res.locals.error_not= req.flash("error_not");
+  next();
+});
 
 //routes
 
