@@ -1,4 +1,4 @@
 # Login_node
-Proyecto de una web de notas y usuario, en la cual utilizare "Backend" (Nodejs, express, Mongodb, Mongoose, )  Frontend (HTML5, Javascritps, express-handlebars, bootstrap)
+Proyecto de una web de notas, Creado con (Nodejs, express, Mongodb, Mongoose)  Frontend (express-handlebars, bootstrap)
 
 Proyecto en desarrollo..... Gracias
