@@ -3,23 +3,39 @@ body {
 }
 
 #form_r{
-    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
-    background-blend-mode: multiply;    
-    border: solid black 2px;
+       
+    
 }
 #titulo{
+    text-align: center;
+    color: whitesmoke;
+}
+#card{
+    background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+background-blend-mode: multiply;
+}
+.logo {
+   width: 30%;
+}
+/*
+titulo:
     background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
     background-blend-mode: multiply;    
     border: solid black 2px;
     color: white;
-    text-align: center;
-}
-/*
- 
-background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
-    background-image: linear-gradient(45deg, #8baaaa 0%, #ae8b9c 100%);}
 
-        background-image: linear-gradient(to right, #434343 0%, black 100%);
+
+
+colores:
+background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
+
+background-image: linear-gradient(45deg, #8baaaa 0%, #ae8b9c 100%);}
+
+background: linear-gradient(to bottom, #323232 0%, #3F3F3F 40%, #1C1C1C 150%), linear-gradient(to top, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.25) 200%);
+background-blend-mode: multiply; 
+
+background-image: linear-gradient(to right, #434343 0%, black 100%);
+
 
 
 /*
