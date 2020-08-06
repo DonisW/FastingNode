@@ -2,9 +2,9 @@ body {
     background-image: linear-gradient(to right, #0acffe 0%, #495aff 100%);
 }
 
-#form_r{
-       
-    
+#bienvenida{
+    color: white;
+    background: #3F3F3F;
 }
 #titulo{
     text-align: center;
