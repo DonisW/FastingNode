@@ -50,6 +50,7 @@ app.use((req, res, next) =>{
 res.locals.exito_not= req.flash("exito_not");
 res.locals.error_not= req.flash("error_not");
 res.locals.error= req.flash("error");
+res.locals.user= req.user || null;
   next();
 });
 
