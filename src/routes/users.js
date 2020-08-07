@@ -39,14 +39,16 @@ router.post("/users/signup", async(req, res) => {
     } else {
         const emailUser = await User.findOne({email: email});
         if(emailUser){
-            req.flash("error_not", "El email indicado se encuentra en uso.");
-            res.redirect("/users/signup");
-        };
-        const newUser = new User({name, email, password});
-        newUser.password = await newUser.encryptPassword(password)
-        await newUser.save();
-        req.flash("exito_not", "Se Registro Exitosamente");
-        res.redirect("/users/signin");
+            errors.push({text: "El email se encuentra en uso"})
+            res.render("users/signup", { errors, name, email, password, confirme_password });
+        }else{
+            const newUser = new User({name, email, password});
+            newUser.password = await newUser.encryptPassword(password)
+            await newUser.save();
+            req.flash("exito_not", "Se Registro Exitosamente");
+            res.redirect("/users/signin");
+        }
+        
     }
 })
 
