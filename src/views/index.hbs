@@ -2,11 +2,17 @@
     <h1 class="dispalay-4">Fasting Note</h1>
     <p class="lead">web creada con nodejs y mongodb.</p>
     <hr class="my-4">
-    <p>Bienvenido a Fasting Note, donde puedes guardar tus notas de forma rapida y sencilla, con el poder de visualizarla donde y cuando quieras.</p>
-    <div>
-        <a href="users/signin" class="btn btn-primary btn-lg form-group">Iniciar Sesion</a>
-        <a href="users/signup" class="btn btn-primary btn-lg form-group">Registarse</a>
-    </div>
-    
-    
+    <p>Bienvenido a Fasting Note, donde puedes guardar tus notas de forma rapida y sencilla, con el poder de
+        visualizarla donde y cuando quieras.</p>
+    {{#if user}}
+
+<a href="/users/logout" class="btn btn-danger btn-lg form-group">Cerrar Sesion</a>
+</div>
+{{else}}
+<div>
+    <a href="users/signin" class="btn btn-primary btn-lg form-group">Iniciar Sesion</a>
+    <a href="users/signup" class="btn btn-primary btn-lg form-group">Registarse</a>
+</div>
+{{/if}}
+</div>
 </div>
