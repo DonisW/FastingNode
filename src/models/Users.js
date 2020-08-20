@@ -10,7 +10,7 @@ const Userschema = new Schema ({
 });
 
 Userschema.methods.encryptPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
+  const salt = await bcrypt.genSalt(12);
   const hash = bcrypt.hash(password, salt);
   return hash;
 };
@@ -20,23 +20,3 @@ Userschema.methods.matchPassword = async function (password) {
 };
 
 module.exports = mongoose.model("User", Userschema);
-
-/*
-(no usar) "   1
-
-Parece que está utilizando la sintaxis de Mongoose incorrecta para los métodos de esquema.
-
-Schema.prototype.method() es una función, por lo que es necesario pasar un objeto de métodos o pasar cada uno individualmente con una cadena como clave.  "
-
-
-
-Userschema.method({
-  encryptPassword: function(password) {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
-  },
-  validPassword: function(password) {
-    return bcrypt.compareSync(password, this.password);
-  },
-})
-
-*/

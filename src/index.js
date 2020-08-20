@@ -9,7 +9,6 @@ const flash = require("connect-flash");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
 
-
 //initializations
 
 const app = express();

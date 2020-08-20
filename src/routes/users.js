@@ -1,60 +1,53 @@
 const router = require("express").Router();
-const User = require("../models/Users")
+const User = require("../models/Users");
 const passport = require("passport");
+const express = require("express");
+const app = express();
+app.use(express.json());
 
 router.get("/users/signin", (req, res) => {
-    res.render("users/signin");
+  res.render("users/signin");
 });
 
-router.post("/users/signin", passport.authenticate("local", {
+router.post(
+  "/users/signin",
+  passport.authenticate("local", {
     successRedirect: "/notes",
     failureRedirect: "/users/signin",
-    failureFlash: true
-}));
+    failureFlash: true,
+  })
+);
 
 router.get("/users/signup", (req, res) => {
-    res.render("users/signup");
+  res.render("users/signup");
 });
 
-router.post("/users/signup", async(req, res) => {
+const { body, validationResult } = require("express-validator");
+router.post(
+  "/users/signup",
+  [
+    body("name").isLength({ min: 2 }),
+    body("email").isEmail(),
+    body("password").isLength({ min: 5 }),
+  ],
+  async (req, res) => {
     const { name, email, password, confirme_password } = req.body;
-    const errors = [];
-    if (name.length <= 0) {
-        errors.push({ text: "Indicar nombre" });
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
     }
-    if (email.length <= 0) {
-        errors.push({ text: "Indicar email" })
-    }
-    if (password.length <= 0) {
-        errors.push({ text: "Indicar Contraseña" })
-    }
-    if (password != confirme_password) {
-        errors.push({ text: "La contraseña no coinciden" });
-    }
-    if (password.length <= 4) {
-        errors.push({ text: "La contraseña debe ser mayor a 4 digitos" });
-    }
-    if (errors.length > 0) {
-        res.render("users/signup", { errors, name, email, password, confirme_password });
-    } else {
-        const emailUser = await User.findOne({email: email});
-        if(emailUser){
-            errors.push({text: "El email se encuentra en uso"})
-            res.render("users/signup", { errors, name, email, password, confirme_password });
-        }else{
-            const newUser = new User({name, email, password});
-            newUser.password = await newUser.encryptPassword(password)
-            await newUser.save();
-            req.flash("exito_not", "Se Registro Exitosamente");
-            res.redirect("/users/signin");
-        }
-        
-    }
-})
+    const newUser = new User({name, email, password});
+    newUser.password = await newUser.encryptPassword(password)
+    await newUser.save();
+    req.flash("exito_not", "Se Registro Exitosamente");
+    res.redirect("/users/signin");
+  }
+);
 
 router.get("/users/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
+  req.logout();
+  res.redirect("/");
 });
 
 module.exports = router;
