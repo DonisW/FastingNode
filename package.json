@@ -4,8 +4,7 @@
   "description": "app web login",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.js",
-    "test": "mocha ./test"
+    "dev": "nodemon src/index.js"
   },
   "repository": {
     "type": "git",
@@ -39,8 +38,6 @@
   },
   "devDependencies": {
     "handlebars": "^4.7.6",
-    "mocha": "^8.1.1",
-    "nodemon": "^2.0.4",
-    "typescript": "^3.9.7"
+    "nodemon": "^2.0.4"
   }
 }

@@ -27,8 +27,21 @@ router.post(
   "/users/signup",
   [
     body("name").isLength({ min: 2 }),
-    body("email").isEmail(),
+
     body("password").isLength({ min: 5 }),
+    body("confirme_password").custom((value, {req}) =>{
+      if(value !== req.body.password) {
+        throw new Error("La confirmación de la contraseña no coincide con la contraseña");
+      }
+      return true;
+    }),
+    body("email").isEmail().custom(email =>{
+      return User.findOne({email : email}).then(users =>{
+        if(users) {
+          return Promise.reject("Correo electrónico se encuentra en uso");
+        }
+      })
+    })
   ],
   async (req, res) => {
     const { name, email, password, confirme_password } = req.body;
