@@ -44,11 +44,16 @@ router.post("/users/signup", async(req, res) => {
   if (errors.length > 0) {
       res.render("users/signup", { errors, name, email, password, confirme_password });
   } else {
+      const nameUser = await User.findOne({name: name});
       const emailUser = await User.findOne({email: email});
       if(emailUser){
           errors.push({text: "El email se encuentra en uso"})
           res.render("users/signup", { errors, name, email, password, confirme_password });
-      }else{
+        }
+        if(nameUser){
+          errors.push({text: "El nombre de usuario esta siendo utilizado."});
+          res.render("users/signup", { errors, name, email, password, confirme_password});
+        }else{
           const newUser = new User({name, email, password});
           newUser.password = await newUser.encryptPassword(password)
           await newUser.save();
