@@ -8,15 +8,15 @@ const {allowInsecurePrototypeAccess} = require("@handlebars/allow-prototype-acce
 const flash = require("connect-flash");
 const bcrypt = require("bcrypt");
 const passport = require("passport");
+const { body } = require("express-validator");
 
 //initializations
-
 const app = express();
 require("./database");
 require("./config/passport");
 //settings
 
-app.set("port", process.env.port || 3000 );
+app.set("port", process.env.port || 3001 );
 
 app.set("views", path.join(__dirname,"views"));
 
@@ -66,5 +66,5 @@ app.use(express.static(path.join(__dirname, "public")));
 //sever is listennig
 
 app.listen(app.get("port"), () => {
-    console.log("server on port", app.get("port"));
+    console.log(`server on port http://localhost:3001`, app.get("port"));
 } );

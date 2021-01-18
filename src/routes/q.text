@@ -63,3 +63,46 @@ User.create({
     password: req.body.name,
 }).then(user => res.json(user));
 });
+
+
+
+
+express-validator
+
+const { body, validationResult } = require("express-validator");
+router.post(
+  "/users/signup",
+  [
+    body("name").isLength({ min: 2 }).withMessage("El nombre debe ser mayor a dos caracteres."),
+
+    body("password").isLength({ min: 5 }).withMessage("La contraseña debe ser mayor a 5 caracteres."),
+
+    body("confirme_password").custom((password, {req}) =>{
+      if(password !== req.body.password) {
+        throw new Error("La contraseña no coinciden.");
+      }
+      return true;
+    }),
+    body("email").isEmail().custom(email =>{
+      return User.findOne({email : email}).then(users =>{
+        if(users) {
+          return Promise.reject("Correo electrónico se encuentra en uso.");
+        }
+      })
+    })
+  ],
+  async (req, res) =>{
+    const { name, email, password, confirme_password } = req.body;
+    // Finds the validation errors in this request and wraps them in an object with handy functions
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({errors: errors.array()});
+      //res.render("users/signup", {errors, name, email, password, confirme_password });
+    }
+    const newUser = new User({name, email, password});
+    newUser.password = await newUser.encryptPassword(password)
+    await newUser.save();
+    req.flash("exito_not", "Se Registro Exitosamente");
+    res.redirect("/users/signin");
+  }
+);

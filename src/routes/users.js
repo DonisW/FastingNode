@@ -3,6 +3,7 @@ const User = require("../models/Users");
 const passport = require("passport");
 const express = require("express");
 const app = express();
+// para el manejo de datos en la recepción (es decir, manejar más fácil los datos de POST a nuestro servidor)//
 app.use(express.json());
 
 router.get("/users/signin", (req, res) => {
@@ -22,42 +23,41 @@ router.get("/users/signup", (req, res) => {
   res.render("users/signup");
 });
 
-const { body, validationResult } = require("express-validator");
-router.post(
-  "/users/signup",
-  [
-    body("name").isLength({ min: 2 }),
-
-    body("password").isLength({ min: 5 }),
-    body("confirme_password").custom((value, {req}) =>{
-      if(value !== req.body.password) {
-        throw new Error("La confirmación de la contraseña no coincide con la contraseña");
-      }
-      return true;
-    }),
-    body("email").isEmail().custom(email =>{
-      return User.findOne({email : email}).then(users =>{
-        if(users) {
-          return Promise.reject("Correo electrónico se encuentra en uso");
-        }
-      })
-    })
-  ],
-  async (req, res) => {
-    const { name, email, password, confirme_password } = req.body;
-    // Finds the validation errors in this request and wraps them in an object with handy functions
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-    const newUser = new User({name, email, password});
-    newUser.password = await newUser.encryptPassword(password)
-    await newUser.save();
-    req.flash("exito_not", "Se Registro Exitosamente");
-    res.redirect("/users/signin");
+router.post("/users/signup", async(req, res) => {
+  const { name, email, password, confirme_password } = req.body;
+  const errors = [];
+  if (name.length <= 0) {
+      errors.push({ text: "Indicar nombre" });
   }
-);
-
+  if (email.length <= 0) {
+      errors.push({ text: "Indicar email" })
+  }
+  if (password.length <= 0) {
+      errors.push({ text: "Indicar Contraseña" })
+  }
+  if (password != confirme_password) {
+      errors.push({ text: "La contraseña no coinciden" });
+  }
+  if (password.length <= 4) {
+      errors.push({ text: "La contraseña debe ser mayor a 4 digitos" });
+  }
+  if (errors.length > 0) {
+      res.render("users/signup", { errors, name, email, password, confirme_password });
+  } else {
+      const emailUser = await User.findOne({email: email});
+      if(emailUser){
+          errors.push({text: "El email se encuentra en uso"})
+          res.render("users/signup", { errors, name, email, password, confirme_password });
+      }else{
+          const newUser = new User({name, email, password});
+          newUser.password = await newUser.encryptPassword(password)
+          await newUser.save();
+          req.flash("exito_not", "Se Registro Exitosamente");
+          res.redirect("/users/signin");
+      }
+      
+  }
+})
 router.get("/users/logout", (req, res) => {
   req.logout();
   res.redirect("/");

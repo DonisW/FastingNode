@@ -11,3 +11,11 @@ botones{
 
 3-Crear vista para modificiar el usuario.
 
+
+
+
+
+**** Importante ****
+
+---- Terminar la validacion del registro de usuario -----
+
